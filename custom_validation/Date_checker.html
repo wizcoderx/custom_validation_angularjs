@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html ng-app="dateRangeApp">
+
+<head>
+  <title>Date Range Picker</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <style>
+    label {
+      display: block;
+      margin: 10px 0;
+    }
+
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+
+<body ng-controller="DateRangeController">
+  <h1>Date Range Picker</h1>
+
+  <!-- Start Date Input -->
+  <label>
+    Start Date:
+    <input type="date" ng-model="startDate" ng-change="validateDateRange()">
+  </label>
+
+  <!-- End Date Input -->
+  <label>
+    End Date:
+    <input type="date" ng-model="endDate" ng-change="validateDateRange()">
+  </label>
+
+  <!-- Validation Error Message -->
+  <div class="error" ng-show="isDateRangeInvalid()">End date must be later than start date.</div>
+
+  <script>
+    angular.module('dateRangeApp', [])
+      .controller('DateRangeController', function ($scope) {
+        // Initialize start and end dates
+        $scope.startDate = '';
+        $scope.endDate = '';
+
+        // Custom validation function
+        $scope.isDateRangeInvalid = function () {
+          // Check if end date is later than start date
+          return $scope.startDate && $scope.endDate && ($scope.endDate <= $scope.startDate);
+        };
+
+        // Function to validate date range
+        $scope.validateDateRange = function () {
+          // Perform any additional logic or actions on date change
+          // For this example, we're simply triggering the validation function
+          $scope.isDateRangeInvalid();
+        };
+      });
+  </script>
+</body>
+
+</html>
